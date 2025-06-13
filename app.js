@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 const adminRouter = require('./routes/admin');
 app.use('/', adminRouter);
 
+const indexRouter = require('./routes/index');
+app.use('/', indexRouter);
+
 app.get('/login', (req, res) => {
   res.render('login');
 });
