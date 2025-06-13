@@ -2,6 +2,8 @@
 <html>
 <head><title>Admins</title></head>
 <body>
+    <%- include('../partials/navbar', { user, csrfToken, activePage }) %>
+
 <h1>Liste des admins</h1>
 <a href="/admins/new">Créer un nouvel admin</a>
 <ul>
@@ -15,5 +17,7 @@
     </li>
   <% }) %>
 </ul>
+
+<%- include ('../partials/footer') %>
 </body>
 </html>

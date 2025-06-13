@@ -2,6 +2,7 @@
 <html>
 <head><title>Créer admin</title></head>
 <body>
+    <%- include('../partials/navbar', { user, csrfToken, activePage }) %>
 <h1>Créer un admin</h1>
 <form action="/admins" method="post">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -15,5 +16,6 @@
   <button type="submit">Créer</button>
 </form>
   <a href="/">Retour à la liste</a>
+  <%- include('../partials/footer') %>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html>
 <head><title>Modifier admin</title></head>
 <body>
+  <%- include('../partials/navbar', { user, csrfToken, activePage }) %>
 <h1>Modifier admin</h1>
 <form action="/admins/<%= admin.id %>" method="post">
   Email: <input type="email" name="email" value="<%= admin.email %>" required><br>
@@ -13,5 +14,6 @@
   <button type="submit">Sauvegarder</button>
 </form>
 <a href="/admins">Retour à la liste</a>
+<%- include('../partials/footer') %>
 </body>
 </html>

@@ -4,7 +4,6 @@ const { Sequelize } = require('sequelize');
 // Ici, nous configurons une connexion à une base de données MySQL nommée 'HMchimp' avec l'utilisateur 'root' et le mot de passe 'root'.
 
 require('dotenv').config();
-const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -16,7 +15,5 @@ const sequelize = new Sequelize(
     logging: false,
   }
 );
-
-testConnection();
 
 module.exports = sequelize;
