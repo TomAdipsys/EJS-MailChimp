@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Créer admin</title></head>
+<body>
+<h1>Créer un admin</h1>
+<form action="/admins" method="post">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  Email: <input type="email" name="email" required><br>
+  Mot de passe: <input type="password" name="password" required><br>
+  Rôle:
+  <select name="role">
+    <option value="ADMIN">ADMIN</option>
+    <option value="SUPERADMIN">SUPERADMIN</option>
+  </select><br>
+  <button type="submit">Créer</button>
+</form>
+  <a href="/">Retour à la liste</a>
+</body>
+</html>

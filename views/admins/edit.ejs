@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Modifier admin</title></head>
+<body>
+<h1>Modifier admin</h1>
+<form action="/admins/<%= admin.id %>" method="post">
+  Email: <input type="email" name="email" value="<%= admin.email %>" required><br>
+  Rôle:
+  <select name="role">
+    <option value="ADMIN" <% if (admin.role === 'ADMIN') { %>selected<% } %>>ADMIN</option>
+    <option value="SUPERADMIN" <% if (admin.role === 'SUPERADMIN') { %>selected<% } %>>SUPERADMIN</option>
+  </select><br>
+  <button type="submit">Sauvegarder</button>
+</form>
+<a href="/admins">Retour à la liste</a>
+</body>
+</html>

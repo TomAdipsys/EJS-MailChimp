@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admins</title></head>
+<body>
+<h1>Liste des admins</h1>
+<a href="/admins/new">Créer un nouvel admin</a>
+<ul>
+  <% admins.forEach(admin => { %>
+    <li>
+      <%= admin.email %> - <%= admin.role %> -
+      <a href="/admins/<%= admin.id %>/edit">Modifier</a>
+      <form action="/admins/<%= admin.id %>/delete" method="post" style="display:inline">
+        <button type="submit">Supprimer</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+</body>
+</html>
