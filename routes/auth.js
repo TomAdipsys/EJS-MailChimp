@@ -5,24 +5,36 @@ const { isAuthenticated } = require('../middlewares/authMiddleware');
 router.get('/login', (req, res) => {
   res.render('login');
 });
-
 const Admin = require('../models/adminModel');
 const bcrypt = require('bcrypt'); // si tu utilises le hash
 
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const admin = await Admin.findOne({ where: { email } });
-  if (admin && password === admin.passwordHash) { // ou bcrypt.compare(password, admin.passwordHash)
+  console.log('POST /login appelé');
+  console.log('req.body:', req.body);
+  const emailInput = req.body.email.trim().toLowerCase();
+  const password = req.body.password;
+  console.log('Tentative de connexion avec :', emailInput);
+
+  const admin = await Admin.findOne({ where: { email: emailInput } });
+  console.log('Admin trouvé :', admin);
+  console.log('User data:', req.session.user);
+
+  if (!admin) {
+    return res.status(401).send('Admin non trouvé');
+  }
+  const isValid = await bcrypt.compare(password, admin.passwordHash);
+  if (isValid) {
     req.session.user = {
       id: admin.id,
       email: admin.email,
+      prenom: admin.prenom,
+      nom: admin.nom,
       role: admin.role
     };
     return res.redirect('/dashboard');
   }
-  res.status(401).send('Identifiants invalides');
+  res.status(401).send('Mot de passe incorrect');
 });
-
 router.post('/logout', isAuthenticated, (req, res) => {
   req.session.destroy(() => res.redirect('/login'));
 });

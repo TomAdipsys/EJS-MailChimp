@@ -7,7 +7,7 @@ const { isSuperAdmin } = require('../middlewares/authMiddleware');
 router.use(express.urlencoded({ extended: true }));
 
 // Liste des admins
-router.get('/', isSuperAdmin, async (req, res) => {
+router.get('/admins', isSuperAdmin, async (req, res) => {
   const admins = await AdminModel.findAll();
   res.render('admins/index', { admins });
 });

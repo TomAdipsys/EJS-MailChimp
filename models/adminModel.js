@@ -12,6 +12,14 @@ const AdminModel = sequelize.define('Admin', {
     allowNull: false,
     unique: true,
   },
+  prenom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   passwordHash: {
     type: DataTypes.STRING,
     allowNull: false,

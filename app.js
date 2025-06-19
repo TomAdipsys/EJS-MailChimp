@@ -1,16 +1,15 @@
-const express = require('express');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const helmet = require('helmet');
-const csurf = require('csurf');
-const rateLimit = require('express-rate-limit');
-const path = require('path');
-require('dotenv').config();
+const express = require('express'); // Framework principal pour créer le serveur web
+const session = require('express-session'); // Middleware pour gérer les sessions utilisateur (stockage côté serveur)
+const cookieParser = require('cookie-parser'); // Middleware pour lire/écrire les cookies HTTP
+const helmet = require('helmet'); // Middleware de sécurité pour ajouter des headers HTTP sécurisés
+const csurf = require('csurf'); // Middleware pour la protection CSRF (Cross-Site Request Forgery)
+const rateLimit = require('express-rate-limit'); // Middleware pour limiter le nombre de requêtes (anti-bruteforce)
+const path = require('path'); // Module natif Node.js pour gérer les chemins de fichiers
+require('dotenv').config(); // Charge les variables d'environnement depuis un fichier .env
 
 const app = express();
 
-const { isAuthenticated, isSuperAdmin } = require('./middlewares/authMiddleware');
-
+const { isAuthenticated, isSuperAdmin } = require('./middlewares/authMiddleware'); // Import des middlewares d'authentification personnalisés
 // Middlewares de sécurité
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
@@ -36,18 +35,19 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes admins (séparées)
-const adminRouter = require('./routes/admin');
-app.use('/', adminRouter);
+// Auth routes EN PREMIER pour éviter les conflits
+const authRouter = require('./routes/auth');
+app.use('/', authRouter);
 
+// Index routes
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
+// Admin routes
+const adminRouter = require('./routes/admin');
+app.use('/', adminRouter);
 
-// Routes principales
+// Dashboard protégé
 app.get('/dashboard', isAuthenticated, (req, res) => {
   res.render('dashboard', { activePage: 'dashboard' });
 });
