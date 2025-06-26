@@ -1,4 +1,3 @@
-// Express route mapping for the admin interface
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +5,6 @@ const router = express.Router();
 const isAuthenticated = require('../middlewares/isAuthenticated');
 const isSuperAdmin = require('../middlewares/isSuperAdmin');
 
-// Controllers (to be implemented)
 const accountController = require('../controllers/accountController');
 const zoneController = require('../controllers/zoneController');
 const apController = require('../controllers/apController');

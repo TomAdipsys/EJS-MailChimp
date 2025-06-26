@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Profile</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('partials/navbar', { user, csrfToken, activePage }) %>
+
+    <div class="container mt-4">
+        <h1>Profil de <%= user ? user.prenom + ' ' + user.nom : '' %></h1>
+        <p>Email : <%= user ? user.email : '' %></p>
+        <p>Rôle : <%= user ? user.role : '' %></p>
+    </div>
+  <%- include('partials/footer') %>
+</body>
+</html>

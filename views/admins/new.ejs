@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html>
-<head><title>Créer admin</title></head>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Créer admmin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
 <body>
     <%- include('../partials/navbar', { user, csrfToken, activePage }) %>
+    
 <h1>Créer un admin</h1>
 <form action="/admins" method="post">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   Email: <input type="email" name="email" required><br>
+  Nom: <input type="text" name="nom" required><br>
+  Prénom: <input type="text" name="prenom" required><br>
   Mot de passe: <input type="password" name="password" required><br>
   Rôle:
   <select name="role">
@@ -15,7 +23,7 @@
   </select><br>
   <button type="submit">Créer</button>
 </form>
-  <a href="/">Retour à la liste</a>
+  <a href="/admins">Retour à la liste</a>
   <%- include('../partials/footer') %>
 </body>
 </html>
