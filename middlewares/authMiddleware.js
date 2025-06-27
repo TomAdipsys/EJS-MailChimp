@@ -6,6 +6,7 @@ function isAuthenticated(req, res, next) {
 }
 
 function isSuperAdmin(req, res, next) {
+  console.log('isSuperAdmin:', req.session.user);
   if (req.session.user && req.session.user.role === 'SUPERADMIN') {
     return next();
   }
