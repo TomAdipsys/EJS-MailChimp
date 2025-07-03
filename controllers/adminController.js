@@ -44,21 +44,16 @@ exports.delete = async (req, res) => {
 exports.editForm = async (req, res) => {
   const admin = await adminService.findById(req.params.id);
   if (!admin) return res.status(404).send('Admin non trouvé');
-  console.log('CSRF token envoyé à la vue:', req.csrfToken());
   res.render('admins/edit', { 
     admin, 
     activePage: 'admins', 
-    csrfToken: req.csrfToken() 
   });
-  console.log('CSRF token envoyé à la vue:', req.csrfToken());
 };
-// res.render('admins/edit', { admin, activePage: 'admins', csrfToken: req.csrfToken(), user: req.session.user });
 
 
 
 exports.update = async (req, res) => {
   try {
-    // Prépare les champs à mettre à jour
     const updateData = {
       email: req.body.email,
       nom: req.body.nom,
@@ -66,7 +61,6 @@ exports.update = async (req, res) => {
       role: req.body.role,
     };
 
-    // Si un nouveau mot de passe est fourni, on l'ajoute
     if (req.body.password) {
       updateData.password = req.body.password; // ⚠️ À SUPPRIMER PLUS TARD
       updateData.passwordHash = await bcrypt.hash(req.body.password, 12);

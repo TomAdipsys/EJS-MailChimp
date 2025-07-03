@@ -15,7 +15,6 @@ const app = express();
 // Sécurité
 app.use(helmet());
 
-// Cookies et sessions
 app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET || 'supersecret',
@@ -27,8 +26,10 @@ app.use(session({
 app.use(express.urlencoded({ extended: true })); // Pour les formulaires HTML
 app.use(express.json()); // Pour les requêtes JSON
 
-// Protection CSRF
-// app.use(csurf({ cookie: false }));
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
+app.use(csurf({ cookie: false }));
 
 // Limiteur de requêtes (anti-bruteforce)
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });

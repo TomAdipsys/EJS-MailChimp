@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profileCard</title>
+</head>
+<body>
+    <div class="d-flex align-items-center mb-3">
+        <img src="<%= user && user.photoUrl ? user.photoUrl : '/img/default-profile.png' %>" alt="Photo de profil" class="rounded-circle" width="48" height="48">
+        <div class="ml-2">
+            <strong><%= user ? user.prenom : '' %> <%= user ? user.nom : '' %></strong><br>
+            <small><%= user ? user.email : '' %></small>
+        </div>
+    </div>
+</body>
+</html>

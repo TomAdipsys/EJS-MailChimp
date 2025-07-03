@@ -15,6 +15,8 @@
     <h1>Bienvenue <%= user ? user.prenom + ' ' + user.nom : '' %></h1>
     <!-- Ajoute ici tes infos du dashboard -->
   </div>
+  <%- include('partials/profileCard', { user }) %>
+  <%- include('filters', { user }) %>
   <%- include('partials/footer') %>
 </body>
 </html>
