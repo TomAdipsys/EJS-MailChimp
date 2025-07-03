@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+    .main-container { max-width: 900px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 2rem 2.5rem; }
+  </style>
 </head>
 <body>
-
   <%- include('partials/navbar', { user, csrfToken, activePage }) %>
-  
-
-  <div class="container mt-4">
-    <h1>Bienvenue <%= user ? user.prenom + ' ' + user.nom : '' %></h1>
-    <!-- Ajoute ici tes infos du dashboard -->
+  <div class="main-container">
+    <h1 class="title is-3 has-text-centered mb-5">Bienvenue sur le Dashboard</h1>
+    <p class="has-text-centered">Bienvenue <strong><%= user ? user.prenom : '' %></strong> !</p>
+    <!-- Ajoute ici tes widgets, graphiques, etc. -->
   </div>
-  <%- include('partials/profileCard', { user }) %>
-  <%- include('filters', { user }) %>
-  <%- include('partials/footer') %>
 </body>
 </html>

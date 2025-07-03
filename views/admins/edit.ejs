@@ -2,28 +2,54 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Modifier admins</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <title>Modifier admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+    .main-container { max-width: 500px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 2rem 2.5rem; }
+  </style>
 </head>
 <body>
   <%- include('../partials/navbar', { user, csrfToken, activePage }) %>
-   
-<h1>Modifier admin</h1>
-<form action="/admins/<%= admin.id %>" method="post">
-  <p>Attention, le changement de l'email peut entraîner des problèmes de connexion si l'email ne correspond pas au nom.prenom de l'admin.</p>
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-  Email: <input type="email" name="email" value="<%= admin.email %>" required><br>
-  Nom: <input type="text" name="nom" value="<%= admin.nom %>" required><br>
-  Prénom: <input type="text" name="prenom" value="<%= admin.prenom %>" required><br>
-  Rôle:
-  <select name="role">
-    <option value="ADMIN" <% if (admin.role === 'ADMIN') { %>selected<% } %>>ADMIN</option>
-    <option value="SUPERADMIN" <% if (admin.role === 'SUPERADMIN') { %>selected<% } %>>SUPERADMIN</option>
-  </select><br>
-  <button type="submit">Sauvegarder</button>
-</form>
-<a href="/admins">Retour à la liste</a>
-<%- include('../partials/footer') %>
+  <div class="main-container">
+    <h1 class="title is-3 has-text-centered mb-5">Modifier admin</h1>
+    <form action="/admins/<%= admin.id %>" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" name="email" value="<%= admin.email %>" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Nom</label>
+        <div class="control">
+          <input class="input" type="text" name="nom" value="<%= admin.nom %>" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Prénom</label>
+        <div class="control">
+          <input class="input" type="text" name="prenom" value="<%= admin.prenom %>" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Rôle</label>
+        <div class="control">
+          <div class="select">
+            <select name="role">
+              <option value="ADMIN" <% if (admin.role === 'ADMIN') { %>selected<% } %>>ADMIN</option>
+              <option value="SUPERADMIN" <% if (admin.role === 'SUPERADMIN') { %>selected<% } %>>SUPERADMIN</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <button type="submit" class="button is-primary">Sauvegarder</button>
+        <a href="/admins" class="button is-light">Annuler</a>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
