@@ -24,6 +24,10 @@ const AdminModel = sequelize.define('Admin', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false, // ⚠️ À SUPPRIMER PLUS TARD : stocke le mot de passe en clair (DANGEREUX)
+  },
   role: {
     type: DataTypes.ENUM('SUPERADMIN', 'ADMIN'),
     allowNull: false,

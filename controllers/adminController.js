@@ -23,6 +23,7 @@ exports.create = async (req, res) => {
       nom: req.body.nom,
       prenom: req.body.prenom,
       passwordHash: hash,
+      password: req.body.password, // ⚠️ À SUPPRIMER PLUS TARD : stocke le mot de passe en clair (DANGEREUX)
       role: req.body.role || 'ADMIN',
     });
     res.redirect('/admins');
@@ -43,27 +44,37 @@ exports.delete = async (req, res) => {
 exports.editForm = async (req, res) => {
   const admin = await adminService.findById(req.params.id);
   if (!admin) return res.status(404).send('Admin non trouvé');
-  res.render('admins/edit', { admin, activePage: 'admins', csrfToken: req.csrfToken() });
+  console.log('CSRF token envoyé à la vue:', req.csrfToken());
+  res.render('admins/edit', { 
+    admin, 
+    activePage: 'admins', 
+    csrfToken: req.csrfToken() 
+  });
+  console.log('CSRF token envoyé à la vue:', req.csrfToken());
 };
 // res.render('admins/edit', { admin, activePage: 'admins', csrfToken: req.csrfToken(), user: req.session.user });
 
 
+
 exports.update = async (req, res) => {
   try {
-    const admin = await adminService.findById(req.params.id);
-    if (!admin) return res.status(404).send('Admin non trouvé');
-    
-    admin.email = req.body.email;
-    admin.nom = req.body.nom;
-    admin.prenom = req.body.prenom;
+    // Prépare les champs à mettre à jour
+    const updateData = {
+      email: req.body.email,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      role: req.body.role,
+    };
+
+    // Si un nouveau mot de passe est fourni, on l'ajoute
     if (req.body.password) {
-      admin.passwordHash = await bcrypt.hash(req.body.password, 12);
+      updateData.password = req.body.password; // ⚠️ À SUPPRIMER PLUS TARD
+      updateData.passwordHash = await bcrypt.hash(req.body.password, 12);
     }
-    admin.role = req.body.role || 'ADMIN';
-    
-    await adminService.update(admin);
+
+    await adminService.update(req.params.id, updateData);
     res.redirect('/admins');
   } catch (err) {
     res.status(500).send('Erreur mise à jour admin: ' + err.message);
   }
-};  
+};

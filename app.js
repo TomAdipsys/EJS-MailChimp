@@ -15,10 +15,6 @@ const app = express();
 // Sécurité
 app.use(helmet());
 
-// Parsing des requêtes
-app.use(express.urlencoded({ extended: true })); // Pour les formulaires HTML
-app.use(express.json()); // Pour les requêtes JSON
-
 // Cookies et sessions
 app.use(cookieParser());
 app.use(session({
@@ -27,8 +23,12 @@ app.use(session({
   saveUninitialized: false
 }));
 
+// Parsing des requêtes
+app.use(express.urlencoded({ extended: true })); // Pour les formulaires HTML
+app.use(express.json()); // Pour les requêtes JSON
+
 // Protection CSRF
-app.use(csurf({ cookie: true }));
+// app.use(csurf({ cookie: false }));
 
 // Limiteur de requêtes (anti-bruteforce)
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
@@ -55,9 +55,8 @@ app.use('/', indexRouter);
 const adminRouter = require('./routes/adminRoutes');
 app.use('/admins', isSuperAdmin, adminRouter);
 
-// Profile (exemple, à activer si besoin)
-// const profileRouter = require('./routes/profile');
-// app.use('/profile', isAuthenticated, profileRouter);
+const profileRouter = require('./routes/profile');
+app.use('/profile', isAuthenticated, profileRouter);
 
 // --- Routes directes ---
 app.get('/dashboard', isAuthenticated, (req, res) => {

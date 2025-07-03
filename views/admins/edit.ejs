@@ -12,10 +12,10 @@
 <h1>Modifier admin</h1>
 <form action="/admins/<%= admin.id %>" method="post">
   <p>Attention, le changement de l'email peut entraîner des problèmes de connexion si l'email ne correspond pas au nom.prenom de l'admin.</p>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   Email: <input type="email" name="email" value="<%= admin.email %>" required><br>
   Nom: <input type="text" name="nom" value="<%= admin.nom %>" required><br>
   Prénom: <input type="text" name="prenom" value="<%= admin.prenom %>" required><br>
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   Rôle:
   <select name="role">
     <option value="ADMIN" <% if (admin.role === 'ADMIN') { %>selected<% } %>>ADMIN</option>
